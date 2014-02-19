@@ -1,0 +1,17 @@
+To run this example, you should create EAP 5.x server runtime in your workspace.
+
+To run this example, you should follow these steps:
+
+1. Open the jboss-esb.xml file in the helloworld_file_action project (esbcontent/META-INF) and modify the FSprovider1/helloFileChannel/Filter properties. Specifically you'll need to change the directory, error directory, and post directory properties to point to actual folders in your file system. For example, on a Windows machine I set my directories to: "C:\temp\input", "C:\temp\error", and "C:\temp\output".
+
+2. Deploy the helloworld_file_action project to your running server.
+
+3. To run the helloworld_file_action_client code in Eclipse you need to provide arguments to the main method in org.jboss.soa.esb.samples.quickstart.helloworldfileaction.test.CreateTestFile.java.
+
+Add a line that populates the three arguments the method is looking for - input directory, file name, and file contents. In the Windows case, I added the line:
+
+	args = new String[] { "C:\\temp\\input", "myfile.dat", "blah blah blah" };
+
+4. In the Project Explorer view, right-click on CreateTestFile.java and select Run As->Java Application.
+
+5. Look at the server runtime console and check your directories to verify that the service took your "myfile.dat" file and both moved and converted it to your output directory as "myfile.dat.sentToEsb".

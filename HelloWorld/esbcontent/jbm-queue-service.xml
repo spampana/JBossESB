@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+  <mbean code="org.jboss.jms.server.destination.QueueService"
+    name="jboss.esb.quickstart.destination:service=Queue,name=quickstart_helloworld_Request_esb"
+    xmbean-dd="xmdesc/Queue-xmbean.xml">
+	<depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer</depends>
+	<depends>jboss.messaging:service=PostOffice</depends>
+  </mbean>
+  <mbean code="org.jboss.jms.server.destination.QueueService"
+    name="jboss.esb.quickstart.destination:service=Queue,name=quickstart_helloworld_Request_gw"
+    xmbean-dd="xmdesc/Queue-xmbean.xml">
+    <depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer</depends>
+	<depends>jboss.messaging:service=PostOffice</depends>
+  </mbean>
+</server>
+
+<!--jbm-queue-service.xml(where the Queues are defined) which contains the MBeans 
+    necessary to deploy the JMS queues to the service bus. 
+	This file needs to be created on the root of your project.
+	
+	In the above code we have define two queues
+	a)quickstart_helloworld_Request_esb
+	b)quickstart_helloworld_Request_gw
+ -->

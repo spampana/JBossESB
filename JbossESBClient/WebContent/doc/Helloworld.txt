@@ -1,0 +1,15 @@
+Refer the Image(HelloworldESBFlowDiagram.jpg) for flow diagram
+
+
+ In step 1, the JMS client send a raw JMS message to the queue "queue/eclipse_quickstart_helloworld_Request_gw".
+
+The JMS listener receives the raw JMS message (step 2) and adapts the message to the ESB aware message format, 
+but before doing this, it needs to know the endpoint of the Service. So the JMS listener first contact (step 3) 
+the Service Registry  (that keeps track of all Service Endpoints References), then normalize the message and 
+place in the the JMS queue "queue/eclipse_quickstart_helloworld_Request_esb"  (step 4)
+
+When the message is placed in this queue the Service "MyJMSListenerAction" is triggered and the content of the 
+Message is extracted and passed to the displayMessage (see step 5).
+
+If all steps performed are successfull you should see a dump on the Server Console of the JMS message 
+sent to the Queue.

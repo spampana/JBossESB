@@ -1,0 +1,59 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<jbossesb xmlns="http://anonsvn.labs.jboss.com/labs/jbossesb/trunk/product/etc/schemas/xml/jbossesb-1.3.0.xsd"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://anonsvn.labs.jboss.com/labs/jbossesb/trunk/product/etc/schemas/xml/jbossesb-1.3.0.xsd http://anonsvn.jboss.org/repos/labs/labs/jbossesb/trunk/product/etc/schemas/xml/jbossesb-1.3.0.xsd"
+ parameterReloadSecs="5">
+ 
+ <!-- 
+ This configuration of every ESB is divided into two main sections: 
+ 
+First section: 
+JMS provider configuration where you can find 2 configuration filters:
+one for the quickstartGwChannel and the other for the quickstartEsbChannel.
+
+Second section: 
+describes the service itself and the listeners : as you can see there are
+also 2 types of listeners: a pure JMS Gateway listener and a ESB aware Listener. 
+
+
+JMS gateway listener is responsible for carrying the message to the ESB (adapting them to the ESB "style") 
+ESB Aware listener is used to exchange message to ESB aware components.
+
+The service itself boils down to a set of actions which are fired when one of the listener is activated. 
+Since the listener for this service are JMS listeners, when a message is sent to the registered Queues 
+the actions are fired.
+-->
+ 
+ <providers>
+          <jms-provider name="JBossMQ" connection-factory="ConnectionFactory">
+              <jms-bus busid="quickstartGwChannel">
+                  <jms-message-filter
+                      dest-type="QUEUE"
+                      dest-name="queue/quickstart_helloworld_Request_gw"
+                   />
+              </jms-bus>
+              <jms-bus busid="quickstartEsbChannel">
+                  <jms-message-filter
+                      dest-type="QUEUE"
+                      dest-name="queue/quickstart_helloworld_Request_esb"
+                  />
+              </jms-bus>
+
+          </jms-provider>
+      </providers>
+	 <services>
+	        <service category="FirstServiceESB" name="SimpleListener"
+	            description="Hello World">
+	            <listeners>
+	                <jms-listener name="JMS-Gateway" busidref="quickstartGwChannel"
+	                    is-gateway="true" />
+	                <jms-listener name="helloWorld" busidref="quickstartEsbChannel" />
+	            </listeners>
+	            <actions mep="OneWay">
+	                <action name="action1"
+	                    class="org.jboss.soa.esb.samples.quickstart.helloworld.MyJMSListenerAction"
+	                    process="displayMessage" />
+	            </actions>
+	        </service>
+	    </services>
+ 
+ </jbossesb>
