@@ -1,1 +1,0 @@
-2014-02-19 20:25:49,228 DEBUG [main][org.jnp.interfaces.TimedSocketFactory] createSocket, hostAddr: localhost/127.0.0.1, port: 1099, localAddr: null, localPort: 0, timeout: 0

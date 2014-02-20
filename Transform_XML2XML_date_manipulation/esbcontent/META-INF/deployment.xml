@@ -1,0 +1,5 @@
+<jbossesb-deployment>
+  <depends>jboss.esb:deployment=smooks.esb</depends>
+  <depends>jboss.esb.quickstart.destination:service=Queue,name=quickstart_date_manipulation_gw</depends>
+  <depends>jboss.esb.quickstart.destination:service=Queue,name=quickstart_date_manipulation_esb</depends>
+</jbossesb-deployment>

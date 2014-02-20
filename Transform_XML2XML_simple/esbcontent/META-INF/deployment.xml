@@ -1,0 +1,5 @@
+<jbossesb-deployment>
+  <depends>jboss.esb:deployment=smooks.esb</depends>
+  <depends>jboss.esb.quickstart.destination:service=Queue,name=quickstart_transform_simple_gw</depends>
+  <depends>jboss.esb.quickstart.destination:service=Queue,name=quickstart_transform_simple_esb</depends>
+</jbossesb-deployment>

@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<smooks-resource-list xmlns="http://www.milyn.org/xsd/smooks-1.0.xsd">
+
+	<!--
+		Create an instance of the OrderDate bean and bind it to the beanId "orderDate".  This ID is 
+		used later in the XSLT to refer to this bean.
+	-->
+	<resource-config selector="Order">
+        <resource>org.milyn.javabean.BeanPopulator</resource>
+		<param name="beanId">orderDate</param>
+		<param name="VisitPhase">ASSEMBLY</param>
+		<param name="beanClass">org.jboss.soa.esb.samples.quickstart.transformxml2xmldatemanipulation.test.OrderDate</param>
+        <param name="bindings">
+            <binding property="orderDate" selector="Order @orderDate" type="LongDate"/>
+        </param>
+	</resource-config>
+	
+    <resource-config selector="decoder:LongDate">
+        <resource>org.milyn.javabean.decoders.DateDecoder</resource>
+        <param name="format">EEE MMM dd HH:mm:ss yyyy</param>
+        <param name="locale-language">en</param>
+    </resource-config>
+
+    <!--
+		Generate the new "OrderDate" element from the date data in the orderDate bean and insert the result before
+		the OrderLines element.
+	-->
+	<resource-config selector="OrderLines">
+        <resource type="xsl"><![CDATA[<OrderDate>
+               <day><smooks-bean:select ognl="orderDate.day"/></day>
+               <time><smooks-bean:select ognl="orderDate.time"/></time>
+               <month><smooks-bean:select ognl="orderDate.month"/></month>
+               <year><smooks-bean:select ognl="orderDate.year"/></year>
+            </OrderDate>]]></resource>
+        <param name="is-xslt-templatelet">true</param>
+		<param name="action">insertbefore</param>
+	</resource-config>
+	
+	<!-- 
+		Remove the orderDate attribute from the Order element - it's now in the message as an OrderDate element.
+	-->
+	<resource-config selector="Order">
+        <resource>org.milyn.cdres.trans.RemoveAttributeTU</resource>
+		<param name="attributeName">orderDate</param>
+	</resource-config>
+	
+</smooks-resource-list>
