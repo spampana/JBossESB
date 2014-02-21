@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+  <!-- 
+  	The following queue has been included for sample purposes.  To use this queue in the ESB,
+  	uncomment the following block of code.  It is suggested that the name of 'SampleJMSQueue'
+  	also be altered to something more meaningful to the project.  To create more queues, simply
+  	make a copy of the following code and add it to this file.  Topics can be created in a similar
+  	way. 
+  	
+  	To fully implement queues in this ESB application, see the deployment.xml descriptor
+  	in the src/main/resources/META-INF directory
+   -->
+   
+   <!-- 
+  <mbean code="org.jboss.jms.server.destination.QueueService"
+    name="jboss.esb.sample.destination:service=Queue,name=SampleJMSQueue"
+    xmbean-dd="xmdesc/Queue-xmbean.xml">
+    <depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer</depends>
+	<depends>jboss.messaging:service=PostOffice</depends>
+  </mbean>
+   -->
+</server>

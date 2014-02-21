@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+	xmlns:cxf="http://cxf.apache.org/core" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+
+	xsi:schemaLocation="
+		http://cxf.apache.org/core
+	http://cxf.apache.org/schemas/core.xsd
+		http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd http://cxf.apache.org/jaxrs
+	http://cxf.apache.org/schemas/jaxrs.xsd
+		http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util.xsd
+	http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-extension-addr.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-extension-jaxrs-binding.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-extension-http-binding.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
+		
+	<bean id="demoServiceBean" class="com.cbeyond.service.DemoServiceImpl" />
+	<bean id="demoServicWSeBean" class="com.cbeyond.service.DemoServiceImpl" />
+	<bean id="jacksonJsonProvider"
+		class="net.cbeyond.service.provider.custom.CustomJacksonJSONProvider" />
+		
+	<jaxrs:server id="demoService" address="/RSInterface">
+		<jaxrs:serviceBeans>
+			<ref bean="demoServiceBean" />
+		</jaxrs:serviceBeans>
+		<jaxrs:extensionMappings>
+			<entry key="json" value="application/json" />
+			<entry key="xml" value="application/xml" />
+			<entry key="html" value="text/html" />
+		</jaxrs:extensionMappings>
+		<jaxrs:providers>
+			<ref bean="jacksonJsonProvider" />
+		</jaxrs:providers>
+	</jaxrs:server>
+	<jaxws:endpoint id="WSdemoService" implementor="#demoServicWSeBean"	address="/WSInterface"/>
+	
+	
+</beans>

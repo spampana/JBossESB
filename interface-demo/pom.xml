@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>net.cbeyond.service</groupId>
+  <artifactId>interface-demo</artifactId>
+  <version>1.0.0</version>
+  <packaging>pom</packaging>
+<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.2</version>
+			<type>jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>3.0.5.RELEASE</version>
+			<type>jar</type>
+			<scope>test</scope>
+		</dependency>		
+</dependencies>
+	<properties>
+		<!-- this shoud be in your .m2/settings.xml <jboss.soa.path>C:\Servers\soa-5.0.2.GA\jboss-soa-p.5.0.0\jboss-as</jboss.soa.path>  -->
+		<jboss.soa.version>5.1.0.SOA</jboss.soa.version>
+	</properties>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>  
+  <modules>
+	<module>interface-demo-cxf</module>
+    <module>interface-demo-service-esb</module>
+  </modules>
+  	<!-- SCM contains dummy info just to satisfy needs of build number plugin.
+	     We don't want Maven to be checking out any code. -->
+    <scm>
+        <connection>scm:svn:http://127.0.0.1/svn/my-project</connection>
+        <developerConnection>scm:svn:https://127.0.0.1/svn/my-project</developerConnection>
+        <tag>HEAD</tag>
+        <url>http://127.0.0.1/websvn/my-project</url>
+    </scm>
+</project>
